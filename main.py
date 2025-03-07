@@ -1,20 +1,18 @@
-
-
 def main():
-    # Start of Database Initialization Up Here
+    # Database initialization here
 
     print("=== Illegal Logging Reporting System ===")
-    
-    user = None 
+
+    user = None
 
     while not user:
         print("\n1. Register\n2. Login\n3. Exit")
         choice = input("Select an option: ")
-        
+
         if choice == "1":
-            User.register() # User class register
+            register() # auth module implementation
         elif choice == "2":
-            user = User.login() # User class login
+            user = login() # auth module implementation
         elif choice == "3":
             print("Goodbye!")
             return
@@ -22,22 +20,33 @@ def main():
             print("Invalid choice! Try again.")
 
     while True:
-        print("\n1. Submit a Report\n2. View Reports")
-        if isinstance(user, Admin): # Check whether user is admin using boolean
-            print("3. Update Report Status")
+        print("\n1. File a Report\n2. View Reports")
+        if isinstance(user, Admin): # admin module implementation
+            print("3. Mark Report")
         print("4. Logout")
-        
+
         choice = input("Select an option: ")
 
         if choice == "1":
-            user.submit_report()
+            location = input("Enter location of illegal logging: ")
+            description = input("Enter description of the incident: ")
+            user.file_report(location, description)
+
         elif choice == "2":
             user.view_reports()
-        elif choice == "3" and isinstance(user, Admin): # Only be able to update report status if admin
-            user.update_report_status()
+            report_id = input("Enter report ID to view details (or press Enter to return): ").strip()
+            if report_id:
+                user.view_report_details(report_id)
+
+        elif choice == "3" and isinstance(user, Admin):# admin module implementation
+            report_id = input("Enter report ID to update: ")
+            status = input("Enter new status (confirmed/dismissed/investigated): ").lower()
+            user.mark_report(report_id, status)
+
         elif choice == "4":
             print("Logging out...")
             break
+
         else:
             print("Invalid choice! Try again.")
 
