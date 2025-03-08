@@ -1,6 +1,7 @@
+from database import setup_database
 
 def main():
-    setup_database() # implement function for initializing database
+    setup_database() 
 
     print("=== Illegal Logging Reporting System ===")
 
