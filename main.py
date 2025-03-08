@@ -1,5 +1,6 @@
+
 def main():
-    # Database initialization here
+    setup_database() # implement function for initializing database
 
     print("=== Illegal Logging Reporting System ===")
 
@@ -13,11 +14,11 @@ def main():
             username = input("Enter username: ")
             password = input("Enter password: ")
             role = input("Enter role (user/admin): ").lower()
-            Auth.register(username, password, role) # auth module implementation
+            Auth.register(username, password, role) # auth.py implementation
         elif choice == "2":
             username = input("Enter username: ")
             password = input("Enter password: ")
-            current_user = Auth.login(username, password) # auth module implementation
+            current_user = Auth.login(username, password) # auth.py implementation
         elif choice == "3":
             print("Goodbye!")
             return
@@ -26,19 +27,20 @@ def main():
 
     while True:
         print("\n1. File a Report\n2. View Reports")
-        if isinstance(current_user, Admin): # admin module implementation
+        if isinstance(current_user, Admin):   # admin.py implementation
             print("3. Mark Report")
         print("4. Logout")
 
         choice = input("Select an option: ")
 
         if choice == "1":
+            print(f"\n{current_user.get_username()}, please enter report details:")
             location = input("Enter location: ")
             description = input("Enter description: ")
             current_user.file_report(location, description)
         elif choice == "2":
             current_user.view_reports()
-        elif choice == "3" and isinstance(current_user, Admin): # admin module implementation
+        elif choice == "3" and isinstance(current_user, Admin): # admin.py implementation
             report_id = input("Enter report ID: ")
             status = input("Enter new status (confirmed/dismissed/investigated/pending): ")
             current_user.mark_report(report_id, status)
