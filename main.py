@@ -1,4 +1,6 @@
 from database import setup_database
+from auth import Auth  
+from admin import Admin  
 
 def main():
     setup_database() 
@@ -15,11 +17,11 @@ def main():
             username = input("Enter username: ")
             password = input("Enter password: ")
             role = input("Enter role (user/admin): ").lower()
-            Auth.register(username, password, role) # auth.py implementation
+            Auth.register(username, password, role)
         elif choice == "2":
             username = input("Enter username: ")
             password = input("Enter password: ")
-            current_user = Auth.login(username, password) # auth.py implementation
+            current_user = Auth.login(username, password) 
         elif choice == "3":
             print("Goodbye!")
             return
@@ -28,7 +30,7 @@ def main():
 
     while True:
         print("\n1. File a Report\n2. View Reports")
-        if isinstance(current_user, Admin):   # admin.py implementation
+        if isinstance(current_user, Admin):   
             print("3. Mark Report")
         print("4. Logout")
 
@@ -41,7 +43,7 @@ def main():
             current_user.file_report(location, description)
         elif choice == "2":
             current_user.view_reports()
-        elif choice == "3" and isinstance(current_user, Admin): # admin.py implementation
+        elif choice == "3" and isinstance(current_user, Admin): 
             report_id = input("Enter report ID: ")
             status = input("Enter new status (confirmed/dismissed/investigated/pending): ")
             current_user.mark_report(report_id, status)
