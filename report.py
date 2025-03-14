@@ -37,7 +37,7 @@ class Report:
 
     @staticmethod
     def update_status(report_id: int, status: str):
-        if status not in ["confirmed", "dismissed", "investigated", "pending"]:
+        if status not in ["confirmed", "dismissed", "investigating", "pending"]:
             print("Invalid status!")
             return
         conn = get_db_connection()

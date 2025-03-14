@@ -45,7 +45,7 @@ def main():
             current_user.view_reports()
         elif choice == "3" and isinstance(current_user, Admin): 
             report_id = input("Enter report ID: ")
-            status = input("Enter new status (confirmed/dismissed/investigated/pending): ")
+            status = input("Enter new status (confirmed/dismissed/investigating/pending): ")
             current_user.mark_report(report_id, status)
         elif choice == "4":
             print("Logging out...")
