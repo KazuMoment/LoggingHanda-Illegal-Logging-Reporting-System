@@ -45,8 +45,19 @@ def main():
             current_user.view_reports()
         elif choice == "3" and isinstance(current_user, Admin): 
             report_id = input("Enter report ID: ")
-            status = input("Enter new status (confirmed/dismissed/investigating/pending): ")
-            current_user.mark_report(report_id, status)
+            try:
+                test_status = "pending" 
+                success = current_user.mark_report(report_id, test_status, check_only=True)
+                if not success:
+                    print(f"No report found with ID '{report_id}'.")
+                    continue 
+
+                status = input("Enter new status (confirmed/dismissed/investigating/pending): ")
+                current_user.mark_report(report_id, status)
+
+            except Exception as e:
+                print(f"An error occurred while updating the report: {e}")
+
         elif choice == "4":
             print("Logging out...")
             break

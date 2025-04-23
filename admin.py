@@ -6,5 +6,7 @@ class Admin(User):
         super().__init__(username)
         self._role = "admin" 
 
-    def mark_report(self, report_id: int, status: str):
-        Report.update_status(report_id, status)
+    def mark_report(self, report_id: int, status: str, check_only=False):
+        return Report.update_status(report_id, status, check_only)
+
+

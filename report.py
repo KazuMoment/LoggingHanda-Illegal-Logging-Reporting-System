@@ -36,13 +36,29 @@ class Report:
         return report
 
     @staticmethod
-    def update_status(report_id: int, status: str):
-        if status not in ["confirmed", "dismissed", "investigating", "pending"]:
+    def update_status(report_id: int, status: str, check_only=False):
+        if not check_only and status not in ["confirmed", "dismissed", "investigating", "pending"]:
             print("Invalid status!")
-            return
+            return False
+
         conn = get_db_connection()
         cursor = conn.cursor()
+        cursor.execute("SELECT id FROM reports WHERE id=?", (report_id,))
+        report = cursor.fetchone()
+
+        if not report:
+            conn.close()
+            return False
+
+        if check_only:
+            conn.close()
+            return True
+
         cursor.execute("UPDATE reports SET status=? WHERE id=?", (status, report_id))
         conn.commit()
         conn.close()
         print(f"Report {report_id} marked as {status}.")
+        return True
+
+
+
