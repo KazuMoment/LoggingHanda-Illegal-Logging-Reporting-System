@@ -18,9 +18,6 @@ class InputSimulator:
 
 def setup_environment():
     setup_database()
-    Auth.register("Kazu", "pass", "admin")
-    user = Auth.login("Kazu", "pass")
-    user.file_report("Test Forest", "Illegal logging detected")
 
 def run_test_case():
     simulated_inputs = [
