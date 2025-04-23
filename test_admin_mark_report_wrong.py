@@ -29,7 +29,7 @@ def run_test_case():
         "pass",           # Password
         "3",              # Mark Report
         "1",              # Report ID
-        "cofir",      # New Status
+        "cofir",          # New Status
         "4"               # Logout
     ]
     original_input = builtins.input
